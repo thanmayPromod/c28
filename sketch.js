@@ -2,6 +2,7 @@ const Engine = Matter.Engine;
 const World= Matter.World;
 const Bodies = Matter.Bodies;
 const Constraint = Matter.Constraint;
+const Body=Matter.Body;
 
 
 var engine, world;
@@ -41,14 +42,7 @@ function setup(){
     bird = new Bird(100,100);
 
     constrainedLog = new Log(230,180,60,PI);
-    var options = {
-        bodyA: bird.body,
-        bodyB: constrainedLog.body,
-        stiffness: 1,
-        length: 50
-    }
-    rope = Constraint.create(options);
-    World.add(world,rope);
+    rope=new Rope(bird.body,{x:200,y:200})
 }
 
 function draw(){
@@ -74,8 +68,10 @@ function draw(){
 
     bird.display();
     platform.display();
-
+    rope.display();
     constrainedLog.display();
     strokeWeight(4);
-    line(bird.body.position.x,bird.body.position.y,constrainedLog.body.position.x,constrainedLog.body.position.y);
 }
+function mouseDragged() {
+    Body.setPosition(bird.body,{x:mouseX,y:mouseY})
+  }
