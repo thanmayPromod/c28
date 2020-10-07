@@ -9,7 +9,7 @@ var engine, world;
 var box1, pig1;
 var backgroundImg,platform;
 var constrainedLog;
-var rope;
+var slingshot1;
 
 function preload() {
     backgroundImg = loadImage("sprites/bg.png");
@@ -39,10 +39,10 @@ function setup(){
     log4 = new Log(760,120,150, PI/7);
     log5 = new Log(870,120,150, -PI/7);
 
-    bird = new Bird(100,100);
+    bird = new Bird(200,50);
 
     constrainedLog = new Log(230,180,60,PI);
-    rope=new Rope(bird.body,{x:200,y:200})
+    slingshot1=new slingshot(bird.body,{x:200,y:50})
 }
 
 function draw(){
@@ -68,10 +68,20 @@ function draw(){
 
     bird.display();
     platform.display();
-    rope.display();
-    constrainedLog.display();
+    slingshot1.display();
+   
     strokeWeight(4);
 }
 function mouseDragged() {
     Body.setPosition(bird.body,{x:mouseX,y:mouseY})
   }
+  function mouseReleased() {
+   slingshot1.fly()
+  }
+  function keyPressed() {
+    if(keyCode===32){
+    Body.setPosition(bird.body,{x:200,y:50})
+    slingshot1.attach(bird.body)
+
+    }
+   }
